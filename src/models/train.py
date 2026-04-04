@@ -5,6 +5,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
+from torchvision.datasets import ImageFolder
 from typing import Tuple, Union
 if __package__ is None or __package__ == "":
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
@@ -158,6 +159,8 @@ def main() -> int:
         )
         import json
         classes_path = Path(settings.model_path).parent / "classes.json"
+        if not isinstance(train_loader.dataset, ImageFolder):
+            raise TypeError("Expected ImageFolder dataset to save class mapping")
         with open(classes_path, "w", encoding="utf-8") as f:
             json.dump(train_loader.dataset.classes, f, indent=2)
         logger.info(f"Saved class mapping to {classes_path}")

@@ -1,6 +1,7 @@
 import argparse
 import torch
 from pathlib import Path
+from torchvision.datasets import ImageFolder
 from src.core.config import settings
 from src.core.logger import setup_logger
 from src.data.preprocess import download_and_prepare_dataset
@@ -55,6 +56,8 @@ def main():
     )
     import json
     classes_path = Path(settings.model_path).parent / "classes.json"
+    if not isinstance(train_loader.dataset, ImageFolder):
+        raise TypeError("Expected ImageFolder dataset to save class mapping")
     with open(classes_path, "w", encoding="utf-8") as f:
         json.dump(train_loader.dataset.classes, f, indent=2)
     logger.info(f"Saved class mapping to {classes_path}")

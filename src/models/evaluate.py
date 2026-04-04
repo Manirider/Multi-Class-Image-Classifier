@@ -113,7 +113,7 @@ def main() -> int:
             model=model,
             val_loader=val_loader,
             device=device,
-            class_names=val_dataset.classes,
+            class_names=class_names,
         )
         save_metrics(metrics, str(Path(settings.results_dir) / "metrics.json"))
         return 0
