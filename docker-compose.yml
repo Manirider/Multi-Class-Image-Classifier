@@ -1,0 +1,22 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${API_PORT:-8000}:8000"
+    environment:
+      - MODEL_PATH=${MODEL_PATH:-model/image_classifier.pth}
+      - DEVICE=${DEVICE:-cuda}
+      - LOG_FILE=${LOG_FILE:-results/training.log}
+    volumes:
+      - ./model:/app/model
+      - ./data:/app/data
+      - ./results:/app/results
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
