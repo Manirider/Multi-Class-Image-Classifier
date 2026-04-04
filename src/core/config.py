@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     learning_rate: float = Field(default=0.001, description="Initial learning rate")
     weight_decay: float = Field(default=1e-4, description="Weight decay for regularization")
     early_stopping_patience: int = Field(default=5, description="Early stopping patience")
-    num_workers: int = Field(default=4, description="DataLoader workers")
+    num_workers: int = Field(default=0, description="DataLoader workers")
     data_path: str = Field(default="data/", description="Path to dataset")
     train_split: float = Field(default=0.8, description="Train/val split ratio")
     random_seed: int = Field(default=42, description="Random seed for reproducibility")

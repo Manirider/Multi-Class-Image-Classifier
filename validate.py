@@ -36,9 +36,9 @@ def check_files():
     for file in required_files:
         path = Path(file)
         if path.exists():
-            print(f"✓ {file}")
+            print(f"[OK] {file}")
         else:
-            print(f"✗ {file} (MISSING)")
+            print(f"[X] {file} (MISSING)")
             missing.append(file)
     print("\n" + "-" * 80)
     print("CHECKING DIRECTORIES")
@@ -52,9 +52,9 @@ def check_files():
     for dir_path in required_dirs:
         path = Path(dir_path)
         if path.exists() and path.is_dir():
-            print(f"✓ {dir_path}/")
+            print(f"[OK] {dir_path}/")
         else:
-            print(f"✗ {dir_path}/ (MISSING)")
+            print(f"[X] {dir_path}/ (MISSING)")
             missing.append(dir_path)
     return len(missing) == 0
 def check_imports():
@@ -79,9 +79,9 @@ def check_imports():
     for module in modules:
         try:
             __import__(module)
-            print(f"✓ {module}")
+            print(f"[OK] {module}")
         except Exception as e:
-            print(f"✗ {module}: {e}")
+            print(f"[X] {module}: {e}")
             failed.append(module)
     return len(failed) == 0
 def check_dependencies():
@@ -93,7 +93,7 @@ def check_dependencies():
         "torchvision",
         "fastapi",
         "uvicorn",
-        "pillow",
+        "PIL",
         "numpy",
         "sklearn",
         "pydantic",
@@ -102,9 +102,9 @@ def check_dependencies():
     for dep in dependencies:
         try:
             __import__(dep)
-            print(f"✓ {dep}")
+            print(f"[OK] {dep}")
         except ImportError:
-            print(f"✗ {dep} (NOT INSTALLED)")
+            print(f"[X] {dep} (NOT INSTALLED)")
             failed.append(dep)
     if failed:
         print(f"\n⚠ Missing dependencies: {', '.join(failed)}")
@@ -113,11 +113,11 @@ def check_dependencies():
     return True
 def main():
     print("\n")
-    print("╔" + "=" * 78 + "╗")
-    print("║" + " " * 78 + "║")
-    print("║" + "  MULTI-CLASS IMAGE CLASSIFICATION - VALIDATION SCRIPT".center(78) + "║")
-    print("║" + " " * 78 + "║")
-    print("╚" + "=" * 78 + "╝")
+    print("+" + "=" * 78 + "+")
+    print("|" + " " * 78 + "|")
+    print("|" + "  MULTI-CLASS IMAGE CLASSIFICATION - VALIDATION SCRIPT".center(78) + "|")
+    print("|" + " " * 78 + "|")
+    print("+" + "=" * 78 + "+")
     checks = [
         ("Project Structure", check_files),
         ("Module Imports", check_imports),
@@ -129,29 +129,21 @@ def main():
             result = check_func()
             results.append((name, result))
         except Exception as e:
-            print(f"\n✗ Error during {name} check: {e}")
+            print(f"\n[X] Error during {name} check: {e}")
             results.append((name, False))
     print("\n" + "=" * 80)
     print("VALIDATION SUMMARY")
     print("=" * 80)
     all_passed = all(result for _, result in results)
     for name, result in results:
-        status = "✓ PASS" if result else "✗ FAIL"
+        status = "[OK] PASS" if result else "[X] FAIL"
         print(f"{name:.<50} {status}")
     print("\n" + "=" * 80)
     if all_passed:
-        print("\n✓ ALL CHECKS PASSED!")
-        print("\nNext steps:")
-        print("  1. python train.py              # Train model")
-        print("  2. python evaluate.py           # Evaluate")
-        print("  3. uvicorn src.api.main:app --reload   # Run API")
-        print("  4. curl http://localhost:8000/health   # Test API")
-        print("\nOr use Docker:")
-        print("  docker-compose up --build")
-        print("\nRead README.md for detailed instructions.")
+        print("\n[OK] ALL CHECKS PASSED!")
         return 0
     else:
-        print("\n✗ SOME CHECKS FAILED")
+        print("\n[X] SOME CHECKS FAILED")
         print("Please fix the issues above before proceeding.")
         return 1
 if __name__ == "__main__":

@@ -115,7 +115,7 @@ def train_model(
         if val_loss < best_val_loss:
             best_val_loss = val_loss
             torch.save(model.state_dict(), model_path)
-            logger.info(f"  ✓ Saved best model to {model_path}")
+            logger.info(f"  [OK] Saved best model to {model_path}")
         scheduler.step()
         if early_stopping(val_loss):
             logger.info(f"Early stopping at epoch {epoch + 1}")

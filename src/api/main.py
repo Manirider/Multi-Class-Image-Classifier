@@ -41,7 +41,7 @@ async def lifespan(app: FastAPI):
         logger.info(f"Model loaded from {model_path}")
         classifier = ImageClassifier(model, class_names, device=device)
         set_classifier(classifier)
-        logger.info("✓ Model ready for inference")
+        logger.info("[OK] Model ready for inference")
     except Exception as e:
         logger.error(f"Failed to load model: {e}", exc_info=True)
         set_classifier(None)

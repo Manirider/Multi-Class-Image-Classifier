@@ -69,7 +69,7 @@ def main():
         model_save_path=settings.model_path
     )
     logger.info("\n" + "=" * 80)
-    logger.info("✓ TRAINING COMPLETE")
+    logger.info("[OK] TRAINING COMPLETE")
     logger.info("=" * 80)
 if __name__ == "__main__":
     main()

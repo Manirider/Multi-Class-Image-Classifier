@@ -62,7 +62,7 @@ def main():
     metrics_path = Path(settings.results_dir) / "metrics.json"
     save_metrics(metrics, str(metrics_path))
     logger.info("\n" + "=" * 80)
-    logger.info("✓ EVALUATION COMPLETE")
+    logger.info("[OK] EVALUATION COMPLETE")
     logger.info("=" * 80)
     logger.info(f"Metrics saved to: {metrics_path}")
 if __name__ == "__main__":
