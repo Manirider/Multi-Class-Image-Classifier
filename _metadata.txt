@@ -1,0 +1,8 @@
+Repository: Multi-Class-Image-Classifier
+Description: The end-to-end image classification pipeline with transfer learning
+Topics: portfolio-project
+
+GitHub Settings Updates:
+1. Go to https://github.com/Manirider/Multi-Class-Image-Classifier/settings
+2. Update the Description field to: The end-to-end image classification pipeline with transfer learning
+3. Add the following tags under Topics: portfolio-project
